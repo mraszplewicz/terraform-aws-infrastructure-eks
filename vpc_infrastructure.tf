@@ -129,6 +129,8 @@ module "eks-vpc-endpoints" {
   endpoints = {
     s3 = {
       service = "s3"
+      service_type = "Gateway"
+      route_table_ids = concat(module.eks-vpc.public_route_table_ids, module.eks-vpc.private_route_table_ids)
       tags = merge({
         "Name" = "${local.name_prefix}-s3-vpc-endpoint"
       }, local.base_tags)
